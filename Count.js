@@ -26,6 +26,11 @@ function Count()
 	
 	this.draw = function()
 	{
+		var width = this._canvas.width;
+		var height = this._canvas.height;
+		this._canvas.height = height;
+		this._canvas.width = width;
+		
 		var context = this._canvas.getContext('2d');
 		context.textAlign = "end";
 		context.drawImage(this._favicon, 0, 0, this._canvas.width, this._canvas.height);
@@ -36,14 +41,16 @@ function Count()
 		var fontSize = this.settings.get(this.settings.names.fontSize);
 		var fontColour = this.settings.get(this.settings.names.fontColour);
 		
+		context.font = fontSize + 'px ' + fontFamily;
 		var textMetrics = context.measureText(this._count);
 		
+		var t = width - textMetrics.width - 2;
+		var l = height - fontSize;
+		
 		context.fillStyle = this.settings.get(this.settings.names.backgroundColour);
-		context.fillRect(10, 10, textMetrics.width, textMetrics.height);
-
-		context.font = fontSize + 'px ' + fontFamily;
+		context.fillRect(t, l, 20, 20);
 		context.fillStyle = fontColour;
-		context.fillText(this._count, 10, 10);
+		context.fillText(this._count, 15, 15);
 	}
 	
 	this.generate = function(deferred)
@@ -53,9 +60,6 @@ function Count()
 			if (deferred) this.deferred = true;
 			return;
 		}
-		
-		this._canvas.width = this._canvas.width;
-		this._canvas.height = this._canvas.height;
 		
 		this.draw();
 		
