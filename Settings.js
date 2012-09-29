@@ -11,12 +11,20 @@ function Settings()
 		pinnedOnly: 0,
 		includedSites: 1,
 		excludedSites: 2,
+		fontFamily: 3,
+		fontSize: 4,
+		fontColour: 5,
+		backgroundColor: 6,
 	}
 	
 	this.defaultSettings = {};
 	this.defaultSettings[this.names.pinnedOnly] = true;
 	this.defaultSettings[this.names.includedSites] = ['twitter.com', 'facebook.com', 'google.com'],
 	this.defaultSettings[this.names.excludedSites] = [];
+	this.defaultSettings[this.names.fontFamily] = 'Arial';
+	this.defaultSettings[this.names.fontSize] = 10;
+	this.defaultSettings[this.names.fontColour] = 'white';
+	this.defaultSettings[this.names.backgroundColor] = 'red';
 	
 	this.get = function(setting)
 	{
