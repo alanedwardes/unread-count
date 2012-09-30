@@ -48,7 +48,7 @@ function Count()
 		var l = height - fontSize;
 		
 		context.fillStyle = this.settings.get(this.settings.names.backgroundColour);
-		context.fillRect(t, l, 20, 20);
+		context.fillRect(t, l, 50, 50);
 		context.fillStyle = fontColour;
 		context.fillText(this._count, 15, 15);
 	}

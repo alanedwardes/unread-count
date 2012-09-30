@@ -14,17 +14,17 @@ function Settings()
 		fontFamily: 3,
 		fontSize: 4,
 		fontColour: 5,
-		backgroundColor: 6,
+		backgroundColour: 6,
 	}
 	
 	this.defaultSettings = {};
 	this.defaultSettings[this.names.pinnedOnly] = true;
 	this.defaultSettings[this.names.includedSites] = ['twitter.com', 'facebook.com', 'google.com'],
-	this.defaultSettings[this.names.excludedSites] = [];
+	this.defaultSettings[this.names.excludedSites] = ['imdb.com'];
 	this.defaultSettings[this.names.fontFamily] = 'Arial';
 	this.defaultSettings[this.names.fontSize] = 10;
-	this.defaultSettings[this.names.fontColour] = 'white';
-	this.defaultSettings[this.names.backgroundColor] = 'red';
+	this.defaultSettings[this.names.fontColour] = '#ffffff';
+	this.defaultSettings[this.names.backgroundColour] = '#cc0000';
 	
 	this.get = function(setting)
 	{
@@ -54,6 +54,11 @@ function Settings()
 	this.commit = function()
 	{
 		localStorage[this.localStorageName] = JSON.stringify(this._settings);
+	}
+	
+	this.reset = function()
+	{
+		localStorage[this.localStorageName] = '';
 	}
 	
 	this.load();
