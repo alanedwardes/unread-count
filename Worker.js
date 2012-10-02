@@ -84,10 +84,27 @@ function Worker()
 		}
 	}
 	
+	this.activeNotifications = [];
+	this.createNotification = function(generatedIcon, count, tab)
+	{
+		var notification = webkitNotifications.createNotification(generatedIcon, count + " Items", "Test");
+		this.activeNotifications.push({ notification: notification, tab: tab });
+		var context = this;
+		notification.onclose = function(e)
+		{
+			alert('notification close');
+			var index = context.activeNotifications.indexOf(notification);
+			if (index > -1)
+			{
+				this.activeNotifications.splice(index, 1);
+			}
+		}
+		notification.show();
+	}
+	
 	this.processTab = function(tab)
-	{	
+	{
 		if (!this.allowedURL(tab.url)) return;
-		
 		var tabIcon = this.getAndCreateTabIcon(tab);
 		if (!tabIcon) return;
 		if (!tabIcon.faviconLoaded) return;
@@ -95,7 +112,14 @@ function Worker()
 		var count = this.extractCountFromTitle(tab.title);
 		tabIcon.setCount(count);
 		
-		this.setTabIcon(tab, tabIcon.generate());
+		var generatedIcon = tabIcon.generate();
+		
+		this.setTabIcon(tab, generatedIcon);
+		
+		if (this.settings.get(this.settings.names.showNotifications))
+		{
+			this.createNotification(generatedIcon, count, tab);
+		}
 	}
 	
 	this.setTabIcon = function(tab, icon)

@@ -4,4 +4,4 @@ worker.work();
 
 window.setInterval(function() {
 	worker.work();
-}, 1000);
+}, 500);
