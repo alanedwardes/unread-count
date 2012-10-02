@@ -98,34 +98,12 @@ function Worker()
 		this.setTabIcon(tab, tabIcon.generate());
 	}
 	
-	this.injectFaviconChangeScript = function(icon)
-	{
-		// This is by far, by far, the worst method I've EVER
-		// written. The worst. So the alternative would be to
-		// have a content script that loads for *every* tab,
-		// and use messages to talk to the content script.
-		// But that'd mean the content script would be loaded
-		// on every tab, regardless of whether we were listening
-		// to it. So this, although disgusting, is cheaper.
-		return [
-			"var classId = '" + this.uniqueClassId + "';",
-			"var linkElement = document.getElementById(classId);",
-			"if (!linkElement){",
-				"linkElement = document.createElement('link');",
-				"linkElement.type = 'image/png';",
-				"linkElement.rel = 'shortcut icon';",
-				"linkElement.id = classId",
-				"if (document.head.children.length > 0) document.head.insertBefore(linkElement, document.head.children[0]);",
-				"else document.head.appendChild(linkElement);",
-			"}",
-			"linkElement.href = '" + icon + "';"	
-		].join("\n");
-	}
-	
 	this.setTabIcon = function(tab, icon)
 	{
-		chrome.tabs.executeScript(tab.id, {
-			'code': this.injectFaviconChangeScript(icon)
+		chrome.tabs.sendMessage(tab.id, {
+			action: "changeFavicon",
+			classId: this.uniqueClassId,
+			faviconUrl: icon
 		});
 	}
 }
