@@ -21,7 +21,7 @@ function Settings()
 	this.defaultSettings = {};
 	this.defaultSettings[this.names.showNotifications] = false;
 	this.defaultSettings[this.names.pinnedOnly] = true;
-	this.defaultSettings[this.names.includedSites] = ['twitter.com', 'facebook.com', 'google.com'],
+	this.defaultSettings[this.names.includedSites] = ['twitter.com', 'facebook.com', 'google'],
 	this.defaultSettings[this.names.excludedSites] = ['imdb.com'];
 	this.defaultSettings[this.names.fontFamily] = 'Arial';
 	this.defaultSettings[this.names.fontSize] = 10;
