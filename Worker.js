@@ -42,12 +42,12 @@ function Worker()
 			for (var i = 0; i < excludedSites.length; i++)
 			{
 				var site = excludedSites[i];
-				if (tab.url.match(site))
+				if (url.match(site))
 				{
 					match = false;
 					break;
 				}
-			}	
+			}
 		}
 		
 		return match;
@@ -104,12 +104,16 @@ function Worker()
 	
 	this.processTab = function(tab)
 	{
-		if (!this.allowedURL(tab.url)) return;
+		if (!this.allowedURL(tab.url)) return;		
 		var tabIcon = this.getAndCreateTabIcon(tab);
 		if (!tabIcon) return;
+		
 		if (!tabIcon.faviconLoaded) return;
 		
 		var count = this.extractCountFromTitle(tab.title);
+		
+		//console.log(tab.url + " has " + count + " unread items.");
+		
 		tabIcon.setCount(count);
 		
 		var generatedIcon = tabIcon.generate();
