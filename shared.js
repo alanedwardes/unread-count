@@ -1,0 +1,1 @@
+var defaults = {	'font-size': 9,	'font-weight': 'bold',	'font-colour': 'white',	'background-colour': 'rgba(200, 0, 0, 0.8)',	'enabled-sites': 'facebook.com|twitter.com|google.',	'notifications': '',	'only-pinned': 'on'}function getSetting(key, value){	if (localStorage[key] != undefined)	{		return localStorage[key];	}	else	{		return value;	}}
